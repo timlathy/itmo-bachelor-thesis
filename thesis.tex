@@ -1,0 +1,57 @@
+\documentclass[a4paper,14pt]{extarticle}
+\usepackage{fontspec, unicode-math}
+\usepackage[english, russian]{babel}
+\setmainfont{Times New Roman}
+\setmonofont{CMU Typewriter Text}
+
+% === Formatting ===
+% Based on https://github.com/3ap/ifmo-vkr-preamble
+
+\usepackage[top=20mm, bottom=20mm, left=25mm, right=10mm]{geometry}
+
+\usepackage[nodisplayskipstretch]{setspace}
+\onehalfspacing
+
+\addto\captionsrussian{
+  \renewcommand{\contentsname}{Оглавление}
+}
+
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\centering\bfseries\large}{\arabic{section}}{1ex}{\MakeUppercase}
+\titleformat{\subsection}[block]{\hspace{\parindent}\bfseries\normalsize}{\arabic{section}.\arabic{subsection}}{1ex}{}
+\titleformat{\subsubsection}[block]{\hspace{\parindent}\bfseries\normalsize}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}{1ex}{}
+\titlespacing*{\section}{0pt}{42pt}{42pt}
+
+% === Commands ===
+
+% \newcommand...
+
+% === Body ===
+
+\begin{document}
+
+\tableofcontents
+\newpage
+
+\section*{ВВЕДЕНИЕ}
+\addcontentsline{toc}{section}{ВВЕДЕНИЕ}
+
+\textbf{Актуальность темы исследования:} (ТЗ)
+
+\textbf{Степень теоретической разработанности темы:} (анализ источников?)
+
+\textbf{Цель работы:} (...)
+
+\textbf{Задачи:}
+\begin{itemize}
+\item ?
+\end{itemize}
+
+\textbf{Практическая значимость:} (...)
+
+\section{Обзор существующих решений}
+
+\end{document}

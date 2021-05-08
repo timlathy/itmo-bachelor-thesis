@@ -790,6 +790,77 @@ $\left[\var{Leaders}[i], \var{Leaders}[i+1]\right)$.\\
 непрозрачный указатель на контекст дизассемблера.
 \end{ol}
 
+\topic{Взаимодействие с подключаемыми библиотеками в Haskell} Привязка к функциям,
+вызываемым из внешних библиотек, реализуется специальным языковым расширением
+\cite[Глава~17]{rwhaskell}, которое включается директивой
+\verb|{-# LANGUAGE ForeignFunctionInterface #-}|.
+
+Рассмотрим декларацию одной из функций ининциализации внутреннего состояния LLVM:
+\begin{verbatim}
+foreign import ccall
+  "llvm-c/Target.h LLVMInitializeAMDGPUTargetInfo"
+  llvmInitializeAMDGPUTargetInfo :: IO ()
+\end{verbatim}
+
+В конструкции \verb|foreign import| указывается соглашение о вызовах, которое будет
+использовано для обращения к внешней функции — \verb|ccall| соответствует соглашению языка С.
+Затем задается заголовочный файл, содержащий сигнатуру внешней функции, и ее название.
+Наконец объявляется имя функции на языке Haskell, типы ее аргументов и результата.
+В приведенном примере тип функции указан как \verb|IO ()|, приблизительно соответствующий
+\verb|void| в C. Это означает, что функция не принимает аргументов и не возвращает результат,
+но имеет побочные эффекты — изменяет глобальное состояние.
+Монада \verb|IO| гаранирует, что оптимизации компилятора не затронут порядок вызова функции
+относительно других действий с побочными эффектами\cite[Глава~7]{rwhaskell}.\\
+
+Перейдем к инициализации контекста дизассемблера:
+\begin{verbatim}
+foreign import ccall
+  "llvm-c/Disassembler.h LLVMCreateDisasmCPU"
+  llvmCreateDisasmCPU :: CString -> CString ->
+    Ptr () -> CInt -> Ptr () -> Ptr () -> IO (Ptr ())
+\end{verbatim}
+
+Поскольку в Haskell используется автоматическое управление памятью,
+ручное отслеживание времени жизни внешних ресурсов
+может привести к утечкам памяти или ошибкам \textit{use-after-free}.
+Сборщик мусора может автоматически освободить внешний ресурс, если он
+обернут в тип \verb|ForeignPtr|, который также хранит указатель на функцию
+освобождения. Для получения указателя на функцию перед ее именем ставится символ \verb|&|:
+\begin{verbatim}
+foreign import ccall
+  "llvm-c/Disassembler.h &LLVMDisasmDispose"
+  llvmDisasmDispose :: FunPtr (Ptr () -> IO ())
+\end{verbatim}
+
+Объявим функцию создания контекста дизассемблера, которая скрывает детали
+реализации (преобразование типов для передачи в C, управление памятью, инициализацию
+глобального состояния):
+\begin{verbatim}
+type LLVMDisasmContextRef = ForeignPtr ()
+
+createCtx :: String -> String -> IO LLVMDisasmContextRef
+createCtx llvmTriple llvmCpu = do
+  llvmInitializeAMDGPUTargetInfo
+  llvmInitializeAMDGPUTargetMC
+  llvmInitializeAMDGPUDisassembler
+  withCString llvmTriple $ \tripleStr ->
+    withCString llvmCpu $ \cpuStr -> do
+      ctxRefRaw <- llvmCreateDisasmCPU tripleStr cpuStr
+        nullPtr 0 nullPtr nullPtr
+      newForeignPtr llvmDisasmDispose ctxRefRaw
+\end{verbatim}
+
+Если примитивные значения (\verb|Int|) могут быть автоматически переведены
+в соответствующие типы C, то со строками такое преобразование невозможно.
+Тип \verb|char*| в C является указателем на область памяти, которая содержит символы
+строки и заканчивается нулевым байтом. Стандартный тип \verb|String| в Haskell,
+в свою очередь, реализован как связный список символов. Для передачи строк
+используется функция \verb|withCString|, которая выделяет новую область в памяти,
+копирует в нее элементы списка и добавляет нулевой байт. Указатель передается
+в лямбда-выражение, которое совершает \verb|IO| действие со строкой. По завершении
+действия временная копия строки удаляется из памяти.
+
+
 \newpage
 \phantomsection
 \addcontentsline{toc}{section}{СПИСОК ИСТОЧНИКОВ}

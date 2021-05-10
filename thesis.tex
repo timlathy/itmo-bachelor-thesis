@@ -619,7 +619,7 @@ $\left[\var{Leaders}[i], \var{Leaders}[i+1]\right)$.\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{diagrams/alg-cfg-call}
+\includegraphics[width=\textwidth]{diagrams/alg-cfg-call}
 \caption{Блок-схема опеределения предшественников при вызове функции}
 \label{fig:diagram-cfg-call}
 \end{figure}
@@ -1054,7 +1054,7 @@ spec = describe "dependency resolution using s_waitcnt" $ do
 \thead{Название модуля \\ (предназначение)} & \thead{Кол-во тестовых \\ сценариев} & \thead{Степень \\ покрытия кода} \\\hline
 \makecell[l]{\texttt{Disassembler.ElfReader}\\[2mm] (Чтение исполняемых файлов ELF)} & 2 & 100\% \\\hline
 \makecell[l]{\texttt{Disassembler.InstructionParser}\\[2mm] (Трансляция операндов инструкций\\из строк в составной тип)} & 6 & 95\% \\\hline
-\makecell[l]{\texttt{ControlFlow}\\[2mm] (Восстановление управляющего графа)} & 2 & 95\% \\\hline
+\makecell[l]{\texttt{ControlFlow}\\[2mm] (Восстановление управляющего графа)} & 3 & 96\% \\\hline
   \makecell[l]{\texttt{Analysis.Waitcnt}\\[2mm] (Проверка инструкций ожидания\\запросов к памяти)} & 5 & 92\% \\\hline
 \makecell[l]{\texttt{Analysis.WaitStateHazard}\\[2mm] (Проверка слотов задержки\\между зависимыми инструкциями)} & 4 & 94\% \\\hline
 \end{tabular}

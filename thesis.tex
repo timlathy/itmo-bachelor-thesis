@@ -14,6 +14,10 @@
 
 \usepackage{nameref}
 
+\usepackage{makecell}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadalign{cl}
+
 % === WIP ===
 
 \usepackage{xcolor}
@@ -1038,6 +1042,23 @@ spec = describe "dependency resolution using s_waitcnt" $ do
 \ref{section:system-design}.
 
 \todo{...}
+
+Оценка тестового покрытия была проведена при помощи инструмента \textit{Haskell Program Coverage}.
+Результаты оценки представлены в таблице \ref{table:test-coverage}.
+
+\begin{table}[H]
+\caption{Оценка тестового покрытия модулей системы}
+\label{table:test-coverage}
+\begin{tabular}{|l|l|l|}
+\hline
+\thead{Название модуля \\ (предназначение)} & \thead{Кол-во тестовых \\ сценариев} & \thead{Степень \\ покрытия кода} \\\hline
+\makecell[l]{\texttt{Disassembler.ElfReader}\\[2mm] (Чтение исполняемых файлов ELF)} & 2 & 100\% \\\hline
+\makecell[l]{\texttt{Disassembler.InstructionParser}\\[2mm] (Трансляция операндов инструкций\\из строк в составной тип)} & 6 & 95\% \\\hline
+\makecell[l]{\texttt{ControlFlow}\\[2mm] (Восстановление управляющего графа)} & 2 & 95\% \\\hline
+  \makecell[l]{\texttt{Analysis.Waitcnt}\\[2mm] (Проверка инструкций ожидания\\запросов к памяти)} & 5 & 92\% \\\hline
+\makecell[l]{\texttt{Analysis.WaitStateHazard}\\[2mm] (Проверка слотов задержки\\между зависимыми инструкциями)} & 4 & 94\% \\\hline
+\end{tabular}
+\end{table}
 
 \subsection{Анализ результатов, дальнейшее направление работы}
 \label{section:future-work}

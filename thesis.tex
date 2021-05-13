@@ -23,29 +23,40 @@
 \usepackage{xcolor}
 \newcommand{\todo}[1]{\textbf{\textcolor{red}{#1}}}
 
-% === Formatting ===
-% Based on https://github.com/3ap/ifmo-vkr-preamble
+% === Page Setup ===
 
 \usepackage[top=20mm, bottom=20mm, left=25mm, right=10mm]{geometry}
-
 \usepackage[nodisplayskipstretch]{setspace}
-\onehalfspacing
-
-\addto\captionsrussian{
-  \renewcommand{\contentsname}{Оглавление}
-}
+\onehalfspacing %\setstretch{1.5}
 
 \usepackage{indentfirst}
 \setlength{\parindent}{1.25cm}
+
+% Avoid overfull boxes by stretching word spacing
+\setlength\emergencystretch{\hsize}
+
+% === Formatting ===
 
 \usepackage{titlesec}
 \titleformat{\section}[block]{\centering\bfseries\large}{\arabic{section}}{1ex}{\MakeUppercase}
 \titleformat{\subsection}[block]{\hspace{\parindent}\bfseries\normalsize}{\arabic{section}.\arabic{subsection}}{1ex}{}
 \titleformat{\subsubsection}[block]{\hspace{\parindent}\bfseries\normalsize}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}{1ex}{}
-\titlespacing*{\section}{0pt}{42pt}{42pt}
+\titlespacing*{\section}{0pt}{36pt}{36pt}
 
-% Avoid overfull boxes by stretching word spacing
-\setlength\emergencystretch{\hsize}
+% === Table of Contents ===
+
+\addto\captionsrussian{
+  \renewcommand{\contentsname}{Оглавление}
+}
+
+% Show dots for all entries
+\usepackage[titles]{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+% Remove bold style for section names/page numbers
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+% Reduce spacing between entries
+\setlength{\cftbeforesecskip}{10pt}
 
 % === Bibliography ===
 
@@ -81,15 +92,14 @@
 \begin{document}
 
 \tableofcontents
-\newpage
 
+\newpage
 \section*{ТЕРМИНЫ И ОПРЕДЕЛЕНИЯ}
 \phantomsection\addcontentsline{toc}{section}{ТЕРМИНЫ И ОПРЕДЕЛЕНИЯ}
 
 \textit{Шейдер} — программа, предназначенная для исполнения на графическом процессоре.
 
 \newpage
-
 \section*{ВВЕДЕНИЕ}
 \phantomsection\addcontentsline{toc}{section}{ВВЕДЕНИЕ}
 
@@ -528,6 +538,7 @@ collection of what has been problematic thus far.
 %В связи с этим в качестве исходных данных в работе рассматриваются исполняемые файлы,
 %формат которых строго определен.
 
+\newpage
 \section{Разработка подхода к статическому анализу шейдеров}
 \label{section:algorithms}
 
@@ -793,6 +804,7 @@ $\left[\var{Leaders}[i], \var{Leaders}[i+1]\right)$.\\
 то конфликт может быть найден в каком-либо из предшественников базового блока.
 Для проверки каждого из них процедура анализа вызывается рекурсивно.
 
+\newpage
 \section{Создание программной реализации средства статического анализа}
 
 \subsection{Проектирование архитектуры системы}

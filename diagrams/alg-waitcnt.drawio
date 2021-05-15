@@ -1,6 +1,6 @@
 <mxfile>
     <diagram id="kXjguaJR83eCiCNNUklo" name="Page-1">
-        <mxGraphModel dx="1475" dy="921" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1168" dy="729" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -22,17 +22,18 @@
                 <mxCell id="11" value="&lt;i&gt;WorkStack&lt;/i&gt; := {(∅,&amp;nbsp;&lt;i&gt;BasicBlocks&lt;/i&gt;[0])}&lt;br&gt;&lt;i&gt;Visited&lt;/i&gt; := ∅" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="80" y="70" width="150" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="12" target="15" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="12" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="325" y="210" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="12" value="&amp;nbsp;(&lt;i&gt;InQueue, BB&lt;/i&gt;)&amp;nbsp;:= снять блок с &lt;i&gt;WorkStack&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="250" y="140" width="150" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="15" target="18" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="15" value="&lt;i&gt;OutQueue&lt;/i&gt; := &lt;i&gt;AnalyzeInstructions&lt;/i&gt;(&lt;i&gt;BB, InQueue&lt;/i&gt;)&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="250" y="210" width="150" height="50" as="geometry"/>
+                <mxCell id="28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" target="18" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="325" y="260" as="sourcePoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" parent="1" source="18" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -233,11 +234,14 @@
                 <mxCell id="127" value="нет" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="1120" y="744" width="40" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="128" value="&lt;i&gt;MissingWait&lt;/i&gt; := выражение ожидания, необходимое для запроса" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="128" value="&lt;i&gt;MissingWait&lt;/i&gt; := выражение ожидания, необходимое для запроса" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="1210" y="385.5" width="150" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="129" value="Записать сообщение о необходимости вставки &lt;i&gt;MissingWait&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="1210" y="525" width="150" height="50" as="geometry"/>
+                <mxCell id="130" value="&lt;i&gt;OutQueue&lt;/i&gt;&lt;span&gt;&amp;nbsp;:=&lt;br&gt;&lt;/span&gt;&lt;i&gt;AnalyzeInstructions&lt;br&gt;&lt;/i&gt;&lt;span&gt;(&lt;/span&gt;&lt;i&gt;BB, InQueue&lt;/i&gt;&lt;span&gt;)&amp;nbsp;&lt;/span&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="209.5" width="150" height="50.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="132" value="Сообщить о необходимости&lt;br&gt;вставки &lt;i&gt;MissingWait&lt;/i&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+                    <mxGeometry x="1210" y="520" width="150" height="50" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
